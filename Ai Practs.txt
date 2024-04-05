@@ -1,0 +1,411 @@
+1) 
+graph= {
+'5' : ['3','7'],
+'3' : ['2','4'],
+'7' : ['8'],
+'2' : [],
+'4' : ['8'],
+'8' : []
+}
+visited = []
+queue = []
+def bfs(visited,graph,node):
+    visited.append(node)
+    queue.append(node)
+    
+    while queue:
+        m = queue.pop(0)
+        print(m,end = "")
+        
+    for neighbour in graph[m]:
+        if neighbour not in visited:
+            visited.append(neighbour)
+            queue.append(neighbour)
+
+print("following is the Breadth First Search : ")
+bfs(visited,graph,'7') 
+
+
+2)
+dict_hn = {'Arad': 336, 'Bucharest': 0, 'Craiova': 160, 'Drobeta': 242,
+           'Eforie': 161, 'Fagaras': 176, 'Giurgiu': 77, 'Hirsova': 151,
+           'Iasi': 226, 'Lugoj': 244, 'Mehadia': 241, 'Neamt': 234,
+           'Oradea': 380, 'Pitesti': 100, 'Rimnicu': 193, 'Sibiu': 253,
+           'Timisoara': 329, 'Urziceni': 80, 'Vaslui': 199, 'Zerind': 374}
+
+dict_gn = {'Arad': {'Zerind': 75, 'Timisoara': 118, 'Sibiu': 140},
+           'Bucharest': {'Urziceni': 85, 'Giurgiu': 90, 'Pitesti': 101, 'Fagaras': 211},
+           'Craiova': {'Drobeta': 120, 'Pitesti': 138, 'Rimnicu': 146},
+           'Drobeta': {'Mehadia': 75, 'Craiova': 120},
+           'Eforie': {'Hirsova': 86},
+           'Fagaras': {'Sibiu': 99, 'Bucharest': 211},
+           'Giurgiu': {'Bucharest': 90},
+           'Hirsova': {'Eforie': 86, 'Urziceni': 98},
+           'Iasi': {'Neamt': 87, 'Vaslui': 92},
+           'Lugoj': {'Mehadia': 70, 'Timisoara': 111},
+           'Mehadia': {'Lugoj': 70, 'Drobeta': 75},
+           'Neamt': {'Iasi': 87},
+           'Oradea': {'Zerind': 71, 'Sibiu': 151},
+           'Pitesti': {'Rimnicu': 97, 'Bucharest': 101, 'Craiova': 138},
+           'Rimnicu': {'Sibiu': 80, 'Pitesti': 97, 'Craiova': 146},
+           'Sibiu': {'Rimnicu': 80, 'Fagaras': 99, 'Arad': 140, 'Oradea': 151},
+           'Timisoara': {'Lugoj': 111, 'Arad': 118},
+           'Urziceni': {'Bucharest': 85, 'Hirsova': 98, 'Vaslui': 142},
+           'Vaslui': {'Iasi': 92, 'Urziceni': 142},
+           'Zerind': {'Oradea': 71, 'Arad': 75}}
+
+import queue as Q
+
+def DLS(city, visitedstack, startlimit, endlimit):
+    global result
+    found=0
+    result=result+city+' '
+    visitedstack.append(city)
+    if city==goal:
+        return 1
+    if startlimit==endlimit:
+        return 0
+    for eachcity in dict_gn[city].keys():
+        if eachcity not in visitedstack:
+            found=DLS(eachcity, visitedstack, startlimit+1, endlimit)
+            if found:
+                return found
+
+def IDDFS(city, visitedstack, endlimit):
+    global result
+    for i in range(0, endlimit):
+        print("Searching at Limit: ",i)
+        found=DLS(city, visitedstack, 0, i)
+        if found:
+            print("Found")
+            break
+        else:
+            print("Not Found! ")
+            print(result)
+            print(" ---- ")
+            result=' '
+            visitedstack=[]
+
+
+start = 'Arad'
+goal = 'Bucharest'
+result = ''
+
+visitedstack=[]
+IDDFS(start, visitedstack, 9)
+print("IDDFS Traversal from ",start," to ", goal," is: ")
+print(result)
+
+
+3) 
+dict_hn = {'Arad': 336, 'Bucharest': 0, 'Craiova': 160, 'Drobeta': 242,
+           'Eforie': 161, 'Fagaras': 176, 'Giurgiu': 77, 'Hirsova': 151,
+           'Iasi': 226, 'Lugoj': 244, 'Mehadia': 241, 'Neamt': 234,
+           'Oradea': 380, 'Pitesti': 100, 'Rimnicu': 193, 'Sibiu': 253,
+           'Timisoara': 329, 'Urziceni': 80, 'Vaslui': 199, 'Zerind': 374}
+
+dict_gn = {'Arad': {'Zerind': 75, 'Timisoara': 118, 'Sibiu': 140},
+           'Bucharest': {'Urziceni': 85, 'Giurgiu': 90, 'Pitesti': 101, 'Fagaras': 211},
+           'Craiova': {'Drobeta': 120, 'Pitesti': 138, 'Rimnicu': 146},
+           'Drobeta': {'Mehadia': 75, 'Craiova': 120},
+           'Eforie': {'Hirsova': 86},
+           'Fagaras': {'Sibiu': 99, 'Bucharest': 211},
+           'Giurgiu': {'Bucharest': 90},
+           'Hirsova': {'Eforie': 86, 'Urziceni': 98},
+           'Iasi': {'Neamt': 87, 'Vaslui': 92},
+           'Lugoj': {'Mehadia': 70, 'Timisoara': 111},
+           'Mehadia': {'Lugoj': 70, 'Drobeta': 75},
+           'Neamt': {'Iasi': 87},
+           'Oradea': {'Zerind': 71, 'Sibiu': 151},
+           'Pitesti': {'Rimnicu': 97, 'Bucharest': 101, 'Craiova': 138},
+           'Rimnicu': {'Sibiu': 80, 'Pitesti': 97, 'Craiova': 146},
+           'Sibiu': {'Rimnicu': 80, 'Fagaras': 99, 'Arad': 140, 'Oradea': 151},
+           'Timisoara': {'Lugoj': 111, 'Arad': 118},
+           'Urziceni': {'Bucharest': 85, 'Hirsova': 98, 'Vaslui': 142},
+           'Vaslui': {'Iasi': 92, 'Urziceni': 142},
+           'Zerind': {'Oradea': 71, 'Arad': 75}}
+
+import queue as Q
+
+start='Arad'
+goal='Bucharest'
+result=''
+
+def get_fn(citystr):
+    cities=citystr.split(" , ")
+    hn=gn=0
+    for ctr in range(0, len(cities)-1):
+        gn=gn+dict_gn[cities[ctr]][cities[ctr+1]]
+    hn=dict_hn[cities[len(cities)-1]]
+    return(hn+gn)
+
+def expand(cityq):
+    global result
+    tot, citystr, thiscity=cityq.get()
+    if thiscity==goal:
+        result=citystr+" : : "+str(tot)
+        return
+    for cty in dict_gn[thiscity]:
+        cityq.put((get_fn(citystr+" , "+cty), citystr+" , "+cty, cty))
+    expand(cityq)
+
+def main():
+    cityq=Q.PriorityQueue()
+    thiscity=start
+    cityq.put((get_fn(start),start,thiscity))
+    expand(cityq)
+    print("The A* path with the total is: ")
+    print(result)
+
+main()
+
+
+4) 
+from queue import Queue
+
+romaniaMap = {
+    'Arad': ['Sibiu', 'Zerind', 'Timisoara'],
+    'Zerind': ['Arad', 'Oradea'],
+    'Oradea': ['Zerind', 'Sibiu'],
+    'Sibiu': ['Arad', 'Oradea', 'Fagaras', 'Rimnicu'],
+    'Timisoara': ['Arad', 'Lugoj'],
+    'Lugoj': ['Timisoara', 'Mehadia'],
+    'Mehadia': ['Lugoj', 'Drobeta'],
+    'Drobeta': ['Mehadia', 'Craiova'],
+    'Craiova': ['Drobeta', 'Rimnicu', 'Pitesti'],
+    'Rimnicu': ['Sibiu', 'Craiova', 'Pitesti'],
+    'Fagaras': ['Sibiu', 'Bucharest'],
+    'Pitesti': ['Rimnicu', 'Craiova', 'Bucharest'],
+    'Bucharest': ['Fagaras', 'Pitesti', 'Giurgiu', 'Urziceni'],
+    'Giurgiu': ['Bucharest'],
+    'Urziceni': ['Bucharest', 'Vaslui', 'Hirsova'],
+    'Hirsova': ['Urziceni', 'Eforie'],
+    'Eforie': ['Hirsova'],
+    'Vaslui': ['Iasi', 'Urziceni'],
+    'Iasi': ['Vaslui', 'Neamt'],
+    'Neamt': ['Iasi']
+}
+
+def bfs(startingNode, destinationNode):
+    visited = {}
+    distance = {}
+    parent = {}
+    bfs_traversal_output = []
+    
+    queue = Queue()
+    for city in romaniaMap.keys():
+        visited[city] = False
+        parent[city] = None
+        distance[city] = -1
+        
+    startingCity = startingNode
+    visited[startingCity] = True
+    distance[startingCity] = 0
+    queue.put(startingCity)
+    
+    while not queue.empty():
+        u = queue.get()
+        bfs_traversal_output.append(u)
+        
+        for v in romaniaMap[u]:
+            if not visited[v]:
+                visited[v] = True
+                parent[v] = u
+                distance[v] = distance[u] + 1
+                queue.put(v)
+    
+    g = destinationNode
+    path = []
+    while g is not None:
+        path.append(g)
+        g = parent[g]
+    path.reverse()
+    print(path)
+
+# Example usage:
+bfs('Arad', 'Bucharest')
+
+
+5) 
+import numpy
+# Parameter initialization
+genes = 2
+chromosomes = 10
+mattingPoolSize = 6
+offspringSize = chromosomes - mattingPoolSize
+lb = -5
+ub = 5
+populationSize = (chromosomes, genes)
+generations = 3
+#Population initialization
+population = numpy.random.uniform(lb, ub, populationSize)
+
+for generation in range(generations):
+    print(("Generation:", generation+1))
+    fitness = numpy.sum(population*population, axis=1)
+    print("\npopulation")
+    print(population)
+    print("\nfitness calcuation")
+    print(fitness)
+    # Following statement will create an empty two dimensional array to store parents
+    parents = numpy.empty((mattingPoolSize, population.shape[1]))
+
+# A loop to extract one parent in each iteration
+for p in range(mattingPoolSize):
+    # Finding index of fittest chromosome in the population
+    fittestIndex = numpy.where(fitness == numpy.max(fitness))
+    # Extracting index of fittest chromosome
+    fittestIndex = fittestIndex[0][0]
+    # Copying fittest chromosome into parents array
+    parents[p, :] = population[fittestIndex, :]
+    # Changing fitness of fittest chromosome to avoid reselection of that chromosome
+    fitness[fittestIndex] = -1
+print("\nParents:")
+print(parents)
+
+# Following statement will create an empty two dimensional array to store offspring
+offspring = numpy.empty((offspringSize, population.shape[1]))
+for k in range(offspringSize):
+    #Determining the crossover point
+    crossoverPoint = numpy.random.randint(0,genes)
+    # Index of the first parent.
+    parent1Index = k%parents.shape[0]
+    # Index of the second.
+    parent2Index = (k+1)%parents.shape[0]
+    # Extracting first half of the offspring
+    offspring[k, 0: crossoverPoint] = parents[parent1Index, 0: crossoverPoint]
+    # Extracting second half of the offspring
+    offspring[k, crossoverPoint:] = parents[parent2Index, crossoverPoint:]
+print("\nOffspring after crossover:")
+print(offspring)
+
+# Implementation of random initialization mutation.
+for index in range(offspring.shape[0]):
+    randomIndex = numpy.random.randint(1,genes)
+    randomValue = numpy.random.uniform(lb, ub, 1)
+    offspring [index, randomIndex] = offspring [index, randomIndex] + randomValue
+    print("\n Offspring after Mutation")
+    print(offspring)
+    population[0:parents.shape[0], :] = parents
+    population[parents.shape[0]:, :] = offspring
+    print("\nNew Population for next generation:")
+    print(population)
+
+fitness = numpy.sum(population*population, axis=1)
+fittestIndex = numpy.where(fitness == numpy.max(fitness))
+# Extracting index of fittest chromosome
+fittestIndex = fittestIndex[0][0]
+# Getting Best chromosome
+fittestInd = population[fittestIndex, :]
+bestFitness = fitness[fittestIndex]
+print("\nBest Individual:")
+print(fittestInd)
+print("\nBest Individual's Fitness:")
+print(bestFitness)
+
+
+6) 
+import numpy as np
+class Perceptron:
+  def __init__(self, learning_rate, epochs):
+    self.weights = None
+    self.bias = None
+    self.learning_rate = learning_rate
+    self.epochs = epochs
+  
+  def activation(self, z):
+    return np.heaviside(z, 0)
+  
+  def fit(self, X, y):
+    n_features = X.shape[1]
+    self.weights = np.zeros((n_features))
+    self.bias = 0
+    for epoch in range(self.epochs):
+      for i in range(len(X)):
+        z = np.dot(X, self.weights) + self.bias
+        y_pred = self.activation(z)
+        
+        self.weights = self.weights + self.learning_rate * (y[i] - y_pred[i]) * X[i]
+        self.bias = self.bias + self.learning_rate * (y[i] - y_pred[i])
+    return self.weights, self.bias
+
+  def predict(self, X):
+    z = np.dot(X, self.weights) + self.bias
+    return self.activation(z)
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+import numpy as np
+
+iris = load_iris()
+X = iris.data[:, (0, 1)]
+y = (iris.target == 0).astype(int)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=42)
+
+perceptron = Perceptron(0.001, 100)
+
+perceptron.fit(X_train, y_train)
+
+pred = perceptron.predict(X_test)
+
+7) 
+import numpy as np
+import skfuzzy as fuzz
+from skfuzzy import control as ctrl
+
+# New Antecedent/Consequent objects hold universe variables and membership
+# functions
+quality = ctrl.Antecedent(np.arange(0, 11, 1), 'quality')
+service = ctrl.Antecedent(np.arange(0, 11, 1), 'service')
+tip = ctrl.Consequent(np.arange(0, 26, 1), 'tip')
+
+# Auto-membership function population is possible with .automf(3, 5, or 7)
+quality.automf(3)
+service.automf(3)
+
+# Custom membership functions can be built interactively with a familiar,
+# Pythonic API
+tip['low'] = fuzz.trimf(tip.universe, [0, 0, 10])
+tip['medium'] = fuzz.trimf(tip.universe, [0, 10, 20])
+tip['high'] = fuzz.trimf(tip.universe, [10, 20, 25])
+
+# You can see how these look with .view()
+quality['average'].view()
+
+
+service.view()
+
+tip.view()
+
+rule1 = ctrl.Rule(quality['poor'] | service['poor'], tip['low'])
+rule2 = ctrl.Rule(service['average'], tip['medium'])
+rule3 = ctrl.Rule(service['good'] | quality['good'], tip['high'])
+
+rule1.view()
+
+
+tipping_ctrl = ctrl.ControlSystem([rule1, rule2, rule3])
+tipping = ctrl.ControlSystemSimulation(tipping_ctrl)
+
+# Pass inputs to the ControlSystem using Antecedent labels with Pythonic API
+# Note: if you like passing many inputs all at once, use .inputs(dict_of_data)
+tipping.input['quality'] = 7.2
+tipping.input['service'] = 9.3
+
+# Crunch the numbers
+tipping.compute()
+
+print(tipping.output['tip'])
+tip.view(sim=tipping)
+
+
+
+
+pip install scikit-learn
+
+pip install pandas
+
+pip install matplotlib
+
+pip install scikit-fuzzy
